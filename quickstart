@@ -30,7 +30,7 @@ command() {
 wait_for_mongoose() {
     local node=$1
     for i in $(seq 1 10); do
-        local status=`docker exec ${node} /member/mongooseim/bin/mongooseimctl status`
+        local status=`docker exec ${node} /usr/lib/mongooseim/bin/mongooseimctl status`
         if [[ "${status}" =~ MongooseIM.*is\ running ]]
         then
             echo "Node ${node} is running"
@@ -113,8 +113,8 @@ start() {
     step "Registering XMPP users"
     for n in $(seq 1 ${XMPP_USERS}); do
         command "docker exec ${PROJECT}-mongooseim-1 \
-            /member/mongooseim/\bin/mongooseimctl \
-            register user_${n} localhost password_${n}"
+            /usr/lib/mongooseim/\bin/mongooseimctl \
+            register_identified user_${n} localhost password_${n}"
     done
 
     step "Preparing HAProxy config file"
