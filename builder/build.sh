@@ -37,6 +37,7 @@ do_build () {
         cd $workdir && \
         git checkout $commit && \
         tools/configure full && \
+        mix deps.update --all && \
         make rel && \
         echo "${name}-${commit}-${repo}" > rel/mongooseim/version && \
         git describe --always >> rel/mongooseim/version
